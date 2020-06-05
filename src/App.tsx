@@ -5,7 +5,7 @@ import { getTodoList } from "./redux/selectors/getTodoList";
 import { makeStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
-import { add } from "./redux/actions/addAction";
+import { add, update } from "./redux/actions/todoAction";
 
 const useStyles = makeStyles(
   (theme) => ({
@@ -40,7 +40,7 @@ const App: FC = () => {
   }, [dispatch, value, setValue]);
 
   const handleOnClickUpdate = () => {
-    // console.log(todoList)
+    dispatch(update(value));
   }
 
   const handleOnChange = useCallback(
