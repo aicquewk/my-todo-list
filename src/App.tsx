@@ -16,7 +16,7 @@ const useStyles = makeStyles(
       padding: "32px",
     },
     form: {
-      width: "40%",
+      width: "70%",
       paddingTop: "16px",
       alignItems: "flex-end",
     },
@@ -34,10 +34,14 @@ const App: FC = () => {
   const todoList = useSelector(getTodoList);
   console.log(todoList);
 
-  const handleOnClick = useCallback(() => {
+  const handleOnClickAdd = useCallback(() => {
     dispatch(add(value));
     setValue("");
   }, [dispatch, value, setValue]);
+
+  const handleOnClickUpdate = () => {
+    // console.log(todoList)
+  }
 
   const handleOnChange = useCallback(
     (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -48,24 +52,43 @@ const App: FC = () => {
   );
 
   return (
-    <div className={classes.root}>
-      Todo:
-      {todoList.map((todo, index) => (
-        <span key={index.toString()}>{`${index + 1} : ${todo}`}</span>
-      ))}
-      <form className={classes.form}>
-        <TextField
-          id="outlined-basic"
-          label="Todo"
-          variant="outlined"
-          value={value}
-          onChange={handleOnChange}
-        />
-      </form>
-      <div className={classes.button}>
-        <Button variant="outlined" onClick={handleOnClick}>
-          Add
-        </Button>
+    <div
+      style={{
+        display: "grid",
+        gridTemplateColumns: "repeat(3, 1fr)",
+        gridGap: 20,
+      }}
+    >
+      <div className={classes.root}>
+        Todo
+        {todoList.map((todo, index) => (
+          <span key={index.toString()}>
+            {`${index + 1} : ${todo}`}
+            <Button variant="outlined" onClick={handleOnClickUpdate} >
+              Update
+            </Button>
+          </span>
+        ))}
+        <form className={classes.form}>
+          <TextField
+            id="outlined-basic"
+            label="Todo"
+            variant="outlined"
+            value={value}
+            onChange={handleOnChange}
+          />
+        </form>
+        <div className={classes.button}>
+          <Button variant="outlined" onClick={handleOnClickAdd}>
+            Add
+          </Button>
+        </div>
+      </div>
+      <div className={classes.root}>
+        Doing
+      </div>
+      <div className={classes.root}>
+        Done
       </div>
     </div>
   );
