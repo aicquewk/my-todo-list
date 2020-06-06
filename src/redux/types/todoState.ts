@@ -1,5 +1,10 @@
+export interface Todo{
+  taskName: string
+  status: string
+}
+
 export interface TodoState {
-  todo: string[];
+  todo: Todo[];
 }
 
 export enum TodoActionType {
@@ -9,9 +14,7 @@ export enum TodoActionType {
 
 export interface TodoAddAction {
   type: TodoActionType.Add;
-  payload: {
-    input: string;
-  };
+  payload: Todo
 }
 
 export interface TodoUpdateAction {

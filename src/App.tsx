@@ -40,7 +40,8 @@ const App: FC = () => {
   }, [dispatch, value, setValue]);
 
   const handleOnClickUpdate = () => {
-    dispatch(update(value));
+    // dispatch(update(value));
+    
   }
 
   const handleOnChange = useCallback(
@@ -63,7 +64,7 @@ const App: FC = () => {
         Todo
         {todoList.map((todo, index) => (
           <span key={index.toString()}>
-            {`${index + 1} : ${todo}`}
+            {`${index + 1} : ${todo.taskName}`}
             <Button variant="outlined" onClick={handleOnClickUpdate} >
               Update
             </Button>

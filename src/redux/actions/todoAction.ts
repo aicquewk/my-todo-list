@@ -3,7 +3,10 @@ import { TodoActionType, TodoAddAction, TodoUpdateAction } from "../types/todoSt
 export function add(input: string): TodoAddAction {
   return {
     type: TodoActionType.Add,
-    payload: { input },
+    payload: {
+      taskName: input,
+      status: "TODO"
+    }
   };
 }
 
