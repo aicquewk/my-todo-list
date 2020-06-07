@@ -19,7 +19,5 @@ export interface TodoAddAction {
 
 export interface TodoUpdateAction {
   type: TodoActionType.Update;
-  payload: {
-    status: string;
-  };
+  payload: number
 }

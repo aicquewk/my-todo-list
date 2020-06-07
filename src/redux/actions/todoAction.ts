@@ -1,18 +1,22 @@
-import { TodoActionType, TodoAddAction, TodoUpdateAction } from "../types/todoState";
+import {
+  TodoActionType,
+  TodoAddAction,
+  TodoUpdateAction,
+} from "../types/todoState";
 
 export function add(input: string): TodoAddAction {
   return {
     type: TodoActionType.Add,
     payload: {
       taskName: input,
-      status: "TODO"
-    }
+      status: "TODO",
+    },
   };
 }
 
-export function update(status: string): TodoUpdateAction {
+export function update(id: number): TodoUpdateAction {
   return {
     type: TodoActionType.Update,
-    payload: { status },
+    payload: id
   };
 }

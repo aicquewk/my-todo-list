@@ -39,14 +39,14 @@ const App: FC = () => {
     setValue("");
   }, [dispatch, value, setValue]);
 
-  const handleOnClickUpdate = () => {
-    // dispatch(update(value));
-    
-  }
+  const handleOnClickUpdate = useCallback((id) => {
+    dispatch(update(id));
+    // console.log(id);
+  }, [dispatch]);
 
   const handleOnChange = useCallback(
     (event: React.ChangeEvent<HTMLInputElement>) => {
-      console.log(event.target.value);
+      // console.log(event.target.value);
       setValue(event.target.value);
     },
     [setValue]
@@ -65,7 +65,7 @@ const App: FC = () => {
         {todoList.map((todo, index) => (
           <span key={index.toString()}>
             {`${index + 1} : ${todo.taskName}`}
-            <Button variant="outlined" onClick={handleOnClickUpdate} >
+            <Button variant="outlined" onClick={() => handleOnClickUpdate(index)} >
               Update
             </Button>
           </span>
