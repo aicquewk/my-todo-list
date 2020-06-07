@@ -12,7 +12,6 @@ import TextField from "@material-ui/core/TextField";
 import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
-import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import { add, update } from "./redux/actions/todoAction";
 
@@ -42,6 +41,7 @@ const App: FC = () => {
   const [title, setTitle] = useState("");
   const [description, setDesc] = useState("");
   const [open, setOpen] = useState(false);
+  const [isDisabled, setDisabled] = useState(true);
   const todoList = useSelector(getTodoList);
   const doingList = useSelector(getDoingList);
   const doneList = useSelector(getDoneList);
@@ -53,6 +53,7 @@ const App: FC = () => {
     dispatch(add(title, description));
     setTitle("");
     setDesc("");
+    setDisabled(true);
     handleClose();
   }, [dispatch, title, description, setTitle, setDesc]);
 
@@ -67,8 +68,9 @@ const App: FC = () => {
     (event: React.ChangeEvent<HTMLInputElement>) => {
       // console.log(event.target.value);
       setTitle(event.target.value);
+      event.target.value.length > 0? setDisabled(false): setDisabled(true);
     },
-    [setTitle]
+    [setTitle, setDisabled]
   );
 
   const handleOnDescChange = useCallback(
@@ -97,7 +99,7 @@ const App: FC = () => {
       <div className={classes.root}>
         Todo
         {todoList.map((todo, index) => (
-          <span key={index.toString()}>
+          <span key={index.toString()} style={{ color: "#0000CD" }} >
             {`${index + 1} : ${todo.title}`}
             <br></br>
             {`${todo.description}`}
@@ -113,7 +115,7 @@ const App: FC = () => {
       <div className={classes.root}>
         Doing
         {doingList.map((todo, index) => (
-          <span key={index.toString()}>
+          <span key={index.toString()} style={{ color: "#FFCC00 " }} >
             {`${index + 1} : ${todo.title}`}
             <br></br>
             {`${todo.description}`}
@@ -129,7 +131,7 @@ const App: FC = () => {
       <div className={classes.root}>
         Done
         {doneList.map((todo, index) => (
-          <span key={index.toString()}>
+          <span key={index.toString()} style={{ color: "#32CD32" }} >
             {`${index + 1} : ${todo.title}`}
             <br></br>
             {`${todo.description}`}
@@ -155,6 +157,8 @@ const App: FC = () => {
               label="Title"
               value={title}
               onChange={handleOnTitleChange}
+              variant="outlined"
+              required
               fullWidth
             />
             <TextField
@@ -162,12 +166,15 @@ const App: FC = () => {
               id="description"
               label="Description"
               value={description}
+              variant="outlined"
               onChange={handleOnDescChange}
+              rows={4}
+              multiline
               fullWidth
             />
           </DialogContent>
           <DialogActions>
-            <Button onClick={handleOnClickAdd} color="primary">
+            <Button disabled={isDisabled} onClick={handleOnClickAdd} color="primary">
               OK
             </Button>
             <Button onClick={handleClose} color="primary">
