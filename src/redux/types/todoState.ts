@@ -1,6 +1,7 @@
 export interface Todo{
-  taskId: number
-  taskName: string
+  id: number
+  title: string
+  description: string
   status: string
 }
 

@@ -5,12 +5,13 @@ import {
 } from "../types/todoState";
 
 let nextId = 0;
-export function add(input: string): TodoAddAction {
+export function add(title: string, description: string): TodoAddAction {
   return {
     type: TodoActionType.Add,
     payload: {
-      taskId: nextId++,
-      taskName: input,
+      id: nextId++,
+      title: title,
+      description: description,
       status: "TODO",
     },
   };
