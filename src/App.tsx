@@ -1,7 +1,7 @@
 import React, { FC, useCallback, useState } from "react";
 import "./App.css";
 import { useDispatch, useSelector } from "react-redux";
-import { getTodoList } from "./redux/selectors/getTodoList";
+import { getTodoList, getDoingList, getDoneList } from "./redux/selectors/getTodoList";
 import { makeStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
@@ -32,7 +32,11 @@ const App: FC = () => {
   const dispatch = useDispatch();
   const [value, setValue] = useState("");
   const todoList = useSelector(getTodoList);
-  console.log(todoList);
+  const doingList = useSelector(getDoingList);
+  const doneList = useSelector(getDoneList);
+
+  // console.log("TodoList:", todoList);
+  // console.log("DoingLst:", doingList);
 
   const handleOnClickAdd = useCallback(() => {
     dispatch(add(value));
@@ -41,7 +45,6 @@ const App: FC = () => {
 
   const handleOnClickUpdate = useCallback((id) => {
     dispatch(update(id));
-    // console.log(id);
   }, [dispatch]);
 
   const handleOnChange = useCallback(
@@ -65,7 +68,7 @@ const App: FC = () => {
         {todoList.map((todo, index) => (
           <span key={index.toString()}>
             {`${index + 1} : ${todo.taskName}`}
-            <Button variant="outlined" onClick={() => handleOnClickUpdate(index)} >
+            <Button variant="outlined" onClick={() => handleOnClickUpdate(todo.taskId)} >
               Update
             </Button>
           </span>
@@ -87,9 +90,22 @@ const App: FC = () => {
       </div>
       <div className={classes.root}>
         Doing
+        {doingList.map((todo, index) => (
+          <span key={index.toString()}>
+            {`${index + 1} : ${todo.taskName}`}
+            <Button variant="outlined" onClick={() => handleOnClickUpdate(todo.taskId)} >
+              Update
+            </Button>
+          </span>
+        ))}
       </div>
       <div className={classes.root}>
         Done
+        {doneList.map((todo, index) => (
+          <span key={index.toString()}>
+            {`${index + 1} : ${todo.taskName}`}
+          </span>
+        ))}
       </div>
     </div>
   );

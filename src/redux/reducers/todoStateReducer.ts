@@ -9,22 +9,18 @@ function todoReducer(state = initialState, action: any): TodoState {
     case TodoActionType.Add:
       return { ...state, todo: [...state.todo, action.payload] };
     case TodoActionType.Update:
-      // return state.todo.map(item => (
-      //   item.taskID === action.payload ? console.log("MATCHED") : console.log("NOT MATCHED")
-      // ));
-      // state.todo.map((item) =>
-      //   item.taskID === action.payload
-      //     ? item.status === "TODO"
-      //       ? console.log({ ...state, status: "DOING" })
-      //       : console.log("ANOTHERSTATUS")
-      //     : console.log("NOT MATCHED")
       return {
         ...state,
-        todo: state.todo.map((item, index) =>
-          index === action.payload ? { ...item, status: "DOING" } : item
+        todo: state.todo.map((item, id) =>
+          id === action.payload
+            ? item.status === "TODO"
+              ? { ...item, status: "DOING" }
+              : item.status === "DOING"
+              ? { ...item, status: "DONE" }
+              : item
+            : item
         ),
       };
-    // return state;
     default:
       return state;
   }
