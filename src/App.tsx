@@ -13,6 +13,7 @@ import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogTitle from "@material-ui/core/DialogTitle";
+import Paper from "@material-ui/core/Paper";
 import { add, update } from "./redux/actions/todoAction";
 
 const useStyles = makeStyles(
@@ -21,15 +22,27 @@ const useStyles = makeStyles(
       width: "100%",
       display: "flex",
       flexDirection: "column",
-      padding: "32px",
     },
-    button: {
-      paddingTop: "16px",
-      marginTop: theme.spacing(15),
-      marginLeft: "70%",
+    addButton: {
+      paddingTop: "32px",
+      paddingLeft: "94%",
     },
     updateButton: {
       marginLeft: theme.spacing(2),
+    },
+    title: {
+      wordWrap: "break-word",
+    },
+    description: {
+      paddingLeft: "16px",
+      wordWrap: "break-word",
+      whiteSpace: "pre-line",
+    },
+    paper: {
+      minHeight: 300,
+      width: "90%",
+      maxWidth: 400,
+      padding: 15,
     },
   }),
   { name: "App" }
@@ -45,9 +58,6 @@ const App: FC = () => {
   const todoList = useSelector(getTodoList);
   const doingList = useSelector(getDoingList);
   const doneList = useSelector(getDoneList);
-
-  // console.log("TodoList:", todoList);
-  // console.log("DoingLst:", doingList);
 
   const handleOnClickAdd = useCallback(() => {
     dispatch(add(title, description));
@@ -66,7 +76,6 @@ const App: FC = () => {
 
   const handleOnTitleChange = useCallback(
     (event: React.ChangeEvent<HTMLInputElement>) => {
-      // console.log(event.target.value);
       setTitle(event.target.value);
       event.target.value.length > 0 ? setDisabled(false) : setDisabled(true);
     },
@@ -89,61 +98,85 @@ const App: FC = () => {
   };
 
   return (
-    <div>
+    <div
+      style={{
+        padding: 32,
+      }}
+    >
       <div
         style={{
           display: "grid",
           gridTemplateColumns: "repeat(3, 1fr)",
-          gridGap: 20,
+          gridGap: 15,
         }}
       >
         <div className={classes.root}>
-          Todo
-          {todoList.map((todo, index) => (
-            <span key={index.toString()} style={{ color: "#0000CD" }}>
-              {`${index + 1} : ${todo.title}`}
+          <b>Todo</b>
+          <br />
+          <Paper className={classes.paper}>
+            {todoList.map((todo, index) => (
+              <span
+                className={classes.title}
+                key={index.toString()}
+                style={{ color: "#0000CD" }}
+              >
+                {`${index + 1}. ${todo.title}`}
 
-              <Button
-                size="small"
-                variant="contained"
-                onClick={() => handleOnClickUpdate(todo.id)}
-                className={classes.updateButton}
-              >
-                Update
-              </Button>
-              <p>{`${todo.description}`}</p>
-            </span>
-          ))}
+                <Button
+                  size="small"
+                  variant="contained"
+                  onClick={() => handleOnClickUpdate(todo.id)}
+                  className={classes.updateButton}
+                >
+                  Update
+                </Button>
+                <p className={classes.description}>{`${todo.description}`}</p>
+              </span>
+            ))}
+          </Paper>
         </div>
         <div className={classes.root}>
-          Doing
-          {doingList.map((todo, index) => (
-            <span key={index.toString()} style={{ color: "#FFCC00 " }}>
-              {`${index + 1} : ${todo.title}`}
-              <Button
-                size="small"
-                variant="contained"
-                onClick={() => handleOnClickUpdate(todo.id)}
-                className={classes.updateButton}
+          <b>Doing</b>
+          <br />
+          <Paper className={classes.paper}>
+            {doingList.map((todo, index) => (
+              <span
+                className={classes.title}
+                key={index.toString()}
+                style={{ color: "#FFCC00 " }}
               >
-                Update
-              </Button>
-              {`${todo.description}`}
-            </span>
-          ))}
+                {`${index + 1}. ${todo.title}`}
+                <Button
+                  size="small"
+                  variant="contained"
+                  onClick={() => handleOnClickUpdate(todo.id)}
+                  className={classes.updateButton}
+                >
+                  Update
+                </Button>
+                <p className={classes.description}>{`${todo.description}`}</p>
+              </span>
+            ))}
+          </Paper>
         </div>
         <div className={classes.root}>
-          Done
-          {doneList.map((todo, index) => (
-            <span key={index.toString()} style={{ color: "#32CD32" }}>
-              {`${index + 1} : ${todo.title}`}
-              <br></br>
-              {`${todo.description}`}
-            </span>
-          ))}
+          <b>Done</b>
+          <br />
+          <Paper className={classes.paper}>
+            {doneList.map((todo, index) => (
+              <span
+                className={classes.title}
+                key={index.toString()}
+                style={{ color: "#32CD32" }}
+              >
+                {`${index + 1}. ${todo.title}`}
+                <p className={classes.description}>{`${todo.description}`}</p>
+              </span>
+            ))}
+          </Paper>
         </div>
       </div>
-      <div className={classes.button}>
+      <div className={classes.addButton}>
         <Button variant="contained" onClick={handleClickOpen} color="primary">
           Add
         </Button>
