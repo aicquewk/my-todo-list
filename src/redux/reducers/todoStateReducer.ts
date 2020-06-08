@@ -15,9 +15,7 @@ function todoReducer(state = initialState, action: any): TodoState {
           id === action.payload
             ? item.status === "TODO"
               ? { ...item, status: "DOING" }
-              : item.status === "DOING"
-              ? { ...item, status: "DONE" }
-              : item
+              : { ...item, status: "DONE" }
             : item
         ),
       };
