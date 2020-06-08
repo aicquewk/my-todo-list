@@ -23,13 +23,13 @@ const useStyles = makeStyles(
       flexDirection: "column",
       padding: "32px",
     },
-    form: {
-      width: "70%",
-      paddingTop: "16px",
-      alignItems: "flex-end",
-    },
     button: {
       paddingTop: "16px",
+      marginTop: theme.spacing(15),
+      marginLeft: "70%",
+    },
+    updateButton: {
+      marginLeft: theme.spacing(2),
     },
   }),
   { name: "App" }
@@ -68,7 +68,7 @@ const App: FC = () => {
     (event: React.ChangeEvent<HTMLInputElement>) => {
       // console.log(event.target.value);
       setTitle(event.target.value);
-      event.target.value.length > 0? setDisabled(false): setDisabled(true);
+      event.target.value.length > 0 ? setDisabled(false) : setDisabled(true);
     },
     [setTitle, setDisabled]
   );
@@ -89,60 +89,66 @@ const App: FC = () => {
   };
 
   return (
-    <div
-      style={{
-        display: "grid",
-        gridTemplateColumns: "repeat(3, 1fr)",
-        gridGap: 20,
-      }}
-    >
-      <div className={classes.root}>
-        Todo
-        {todoList.map((todo, index) => (
-          <span key={index.toString()} style={{ color: "#0000CD" }} >
-            {`${index + 1} : ${todo.title}`}
-            <br></br>
-            {`${todo.description}`}
-            <Button
-              variant="outlined"
-              onClick={() => handleOnClickUpdate(todo.id)}
-            >
-              Update
-            </Button>
-          </span>
-        ))}
-      </div>
-      <div className={classes.root}>
-        Doing
-        {doingList.map((todo, index) => (
-          <span key={index.toString()} style={{ color: "#FFCC00 " }} >
-            {`${index + 1} : ${todo.title}`}
-            <br></br>
-            {`${todo.description}`}
-            <Button
-              variant="outlined"
-              onClick={() => handleOnClickUpdate(todo.id)}
-            >
-              Update
-            </Button>
-          </span>
-        ))}
-      </div>
-      <div className={classes.root}>
-        Done
-        {doneList.map((todo, index) => (
-          <span key={index.toString()} style={{ color: "#32CD32" }} >
-            {`${index + 1} : ${todo.title}`}
-            <br></br>
-            {`${todo.description}`}
-          </span>
-        ))}
-      </div>
+    <div>
+      <div
+        style={{
+          display: "grid",
+          gridTemplateColumns: "repeat(3, 1fr)",
+          gridGap: 20,
+        }}
+      >
+        <div className={classes.root}>
+          Todo
+          {todoList.map((todo, index) => (
+            <span key={index.toString()} style={{ color: "#0000CD" }}>
+              {`${index + 1} : ${todo.title}`}
 
+              <Button
+                size="small"
+                variant="contained"
+                onClick={() => handleOnClickUpdate(todo.id)}
+                className={classes.updateButton}
+              >
+                Update
+              </Button>
+              <p>{`${todo.description}`}</p>
+            </span>
+          ))}
+        </div>
+        <div className={classes.root}>
+          Doing
+          {doingList.map((todo, index) => (
+            <span key={index.toString()} style={{ color: "#FFCC00 " }}>
+              {`${index + 1} : ${todo.title}`}
+              <Button
+                size="small"
+                variant="contained"
+                onClick={() => handleOnClickUpdate(todo.id)}
+                className={classes.updateButton}
+              >
+                Update
+              </Button>
+              {`${todo.description}`}
+            </span>
+          ))}
+        </div>
+        <div className={classes.root}>
+          Done
+          {doneList.map((todo, index) => (
+            <span key={index.toString()} style={{ color: "#32CD32" }}>
+              {`${index + 1} : ${todo.title}`}
+              <br></br>
+              {`${todo.description}`}
+            </span>
+          ))}
+        </div>
+      </div>
       <div className={classes.button}>
-        <Button variant="contained" onClick={handleClickOpen}>
+        <Button variant="contained" onClick={handleClickOpen} color="primary">
           Add
         </Button>
+      </div>
+      <div>
         <Dialog
           open={open}
           onClose={handleClose}
@@ -174,7 +180,11 @@ const App: FC = () => {
             />
           </DialogContent>
           <DialogActions>
-            <Button disabled={isDisabled} onClick={handleOnClickAdd} color="primary">
+            <Button
+              disabled={isDisabled}
+              onClick={handleOnClickAdd}
+              color="primary"
+            >
               OK
             </Button>
             <Button onClick={handleClose} color="primary">
