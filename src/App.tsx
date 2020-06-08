@@ -23,6 +23,9 @@ const useStyles = makeStyles(
       display: "flex",
       flexDirection: "column",
     },
+    status: {
+      paddingLeft: "15px",
+    },
     addButton: {
       paddingTop: "32px",
       paddingLeft: "94%",
@@ -111,7 +114,9 @@ const App: FC = () => {
         }}
       >
         <div className={classes.root}>
-          <b>Todo</b>
+          <div className={classes.status}>
+            <b>Todo</b>
+          </div>
           <br />
           <Paper className={classes.paper}>
             {todoList.map((todo, index) => (
@@ -136,7 +141,9 @@ const App: FC = () => {
           </Paper>
         </div>
         <div className={classes.root}>
-          <b>Doing</b>
+          <div className={classes.status}>
+            <b>Doing</b>
+          </div>
           <br />
           <Paper className={classes.paper}>
             {doingList.map((todo, index) => (
@@ -160,7 +167,9 @@ const App: FC = () => {
           </Paper>
         </div>
         <div className={classes.root}>
-          <b>Done</b>
+          <div className={classes.status}>
+            <b>Done</b>
+          </div>
           <br />
           <Paper className={classes.paper}>
             {doneList.map((todo, index) => (
