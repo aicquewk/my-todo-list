@@ -1,11 +1,9 @@
 import React, { FC, useCallback, useState } from "react";
 import "./App.css";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  getTodoList,
-  getDoingList,
-  getDoneList,
-} from "./redux/selectors/getTodoList";
+import { getTodoList } from "./redux/selectors/getTodoList";
+import { getDoingList } from "./redux/selectors/getDoingList";
+import { getDoneList } from "./redux/selectors/getDoneList";
 import { makeStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
