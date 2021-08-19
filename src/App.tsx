@@ -121,7 +121,7 @@ const App: FC = () => {
               <span
                 className={classes.title}
                 key={index.toString()}
-                style={{ color: "#0000CD" }}
+                style={{ color: "#0000CD", fontWeight: "bold" }}
               >
                 {`${index + 1}. ${todo.title}`}
 
@@ -148,7 +148,7 @@ const App: FC = () => {
               <span
                 className={classes.title}
                 key={index.toString()}
-                style={{ color: "#FFCC00 " }}
+                style={{ color: "#FFCC00", fontWeight: "bold" }}
               >
                 {`${index + 1}. ${todo.title}`}
                 <Button
@@ -174,7 +174,7 @@ const App: FC = () => {
               <span
                 className={classes.title}
                 key={index.toString()}
-                style={{ color: "#32CD32" }}
+                style={{ color: "#32CD32", fontWeight: "bold" }}
               >
                 {`${index + 1}. ${todo.title}`}
                 <p className={classes.description}>{`${todo.description}`}</p>
